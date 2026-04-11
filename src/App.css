@@ -1,0 +1,21 @@
+/* App Container */
+main {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Smooth transitions */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Smooth scroll behavior already set in index.css */

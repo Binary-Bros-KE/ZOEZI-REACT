@@ -1,0 +1,466 @@
+.search-members-page {
+  padding: 2rem 0;
+  min-height: 80vh;
+}
+
+.search-form {
+  margin: 0 auto 0;
+  max-width: 600px;
+}
+
+.search-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--color-white);
+  padding: 0.75rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--color-gray);
+  transition: all 0.3s ease;
+}
+
+.search-wrapper:focus-within {
+  border-color: var(--color-primary-gold);
+  box-shadow: 0 4px 20px rgba(212, 166, 68, 0.2);
+}
+
+@media (max-width: 680px) {
+  .search-wrapper {
+    flex-direction: column;
+  }
+}
+
+.search-icon {
+  color: var(--color-primary-gold);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin: auto 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.search-input::placeholder {
+  color: var(--color-text-light);
+}
+
+.search-btn {
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-primary-gold) 0%, var(--color-accent-yellow) 100%);
+  color: var(--color-primary-dark);
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 166, 68, 0.3);
+}
+
+.search-results {
+  margin-top: 2rem;
+}
+
+.results-count {
+  text-align: center;
+  color: var(--color-primary-gold);
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Profile Card Styles */
+.profile-card {
+  background: var(--color-white);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-gray);
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-card:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Certified Professional Ribbon */
+.certified-ribbon {
+  position: absolute;
+  top: 1rem;
+  left: -25px;
+  width: 100px;
+  padding: 0 2rem;
+  background: linear-gradient(135deg, #2fd345 0%, #1dc517 100%);
+  color: white;
+  text-align: center;
+  font-size: 0.5rem;
+  font-weight: 700;
+  transform: rotate(-45deg);
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.certified-ribbon span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-ribbon {
+  position: absolute;
+  top: 1rem;
+  left: -25px;
+  width: 100px;
+  padding: 0 2rem;
+  background: linear-gradient(135deg, #2f68d3 0%, #171ac5 100%);
+  color: white;
+  text-align: center;
+  font-size: 0.5rem;
+  font-weight: 700;
+  transform: rotate(-45deg);
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.student-ribbon span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-header {
+  position: relative;
+  padding: 1.5rem;
+  padding-bottom: .5;
+  background: linear-gradient(135deg, #f5f5f3 0%, #eee 100%);
+  text-align: center;
+}
+
+.profile-image-wrapper {
+  margin-bottom: 1rem;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 5%;
+  object-fit: cover;
+  border: 3px solid var(--color-primary-gold);
+  background: var(--color-white);
+}
+
+.profile-status-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+
+.profile-content {
+  padding: 1.5rem;
+  padding-top: 0;
+}
+
+.profile-name {
+  color: var(--color-primary-dark);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+}
+
+.profile-id,
+.profile-course {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  line-height: 1.4;
+}
+
+.profile-id strong,
+.profile-course strong {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+/* Practice Information */
+.profile-practice {
+  background: #f5f5f3;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border-left: 3px solid var(--color-primary-gold);
+}
+
+.practice-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  color: var(--color-text-secondary);
+}
+
+.practice-item:last-child {
+  margin-bottom: 0;
+}
+
+.practice-label {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  min-width: 120px;
+}
+
+.practice-status {
+  font-weight: 600;
+}
+
+.practice-status.active {
+  color: #2b8a3e;
+}
+
+.practice-status.inactive {
+  color: #666;
+}
+
+.practice-status.on_leave {
+  color: #f57c00;
+}
+
+.practice-item .icon {
+  color: var(--color-primary-gold);
+  min-width: 18px;
+}
+
+/* Contact Info */
+.profile-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-gray);
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2b2520;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.contact-link:hover {
+  color: var(--color-accent-yellow);
+}
+
+/* Old Result Card Styles (for backward compatibility) */
+.result-card {
+  background: var(--color-white);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-gray);
+  border-top: 4px solid var(--color-primary-gold);
+}
+
+.result-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  border-top-color: var(--color-accent-yellow);
+}
+
+.result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.result-icon {
+  font-size: 2rem;
+  color: var(--color-primary-gold);
+}
+
+.result-status {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.result-name {
+  color: var(--color-primary-dark);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.result-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1rem;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.detail-value {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--color-gray);
+  border-top-color: var(--color-primary-gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-text-secondary);
+}
+
+.no-results p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.no-results-hint {
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+}
+
+.search-hint {
+  text-align: center;
+  padding: 3rem;
+  background: var(--color-bg-secondary);
+  border-radius: 12px;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+/* Add to SearchMembers.css */
+.search-wrapper {
+  position: relative;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 50;
+  margin-top: 4px;
+}
+
+.suggestion-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s;
+}
+
+.suggestion-item:hover {
+  background-color: #f9fafb;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-name {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.suggestion-type {
+  font-size: 0.75rem;
+}
+
+.suggestion-type-badge {
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.suggestion-type-badge.alumni {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.suggestion-type-badge.student {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.search-tips {
+  text-align: center;
+  margin-top: 8px;
+}
