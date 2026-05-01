@@ -30,7 +30,7 @@ const fmtDateTime = (value) => {
 const tone = (status) => {
   const key = String(status || '').toLowerCase();
   if (['active', 'success'].includes(key)) return 'border-emerald-200 bg-emerald-100 text-emerald-700';
-  if (key === 'pending') return 'border-amber-200 bg-amber-100 text-amber-700';
+  if (key === 'pending') return 'border-gray-400 bg-gray-100 text-gray-400';
   if (['failed', 'cancelled', 'reversed'].includes(key)) return 'border-rose-200 bg-rose-100 text-rose-700';
   if (key === 'completed') return 'border-slate-200 bg-slate-100 text-slate-700';
   return 'border-blue-200 bg-blue-100 text-blue-700';
@@ -85,7 +85,7 @@ const invoiceStatusColor = (status) => {
   const key = String(status || '').toLowerCase();
   if (key === 'paid') return 'border-green-500 bg-green-50 text-green-700 font-semibold';
   if (key === 'overdue') return 'border-red-500 bg-red-50 text-red-700 font-semibold';
-  if (key === 'pending') return 'border-orange-500 bg-orange-50 text-orange-700 font-semibold';
+  if (key === 'pending') return 'border-gray-400 bg-gary-100 text-grade-700 font-semibold';
   return 'border-slate-300 bg-slate-100 text-slate-700';
 };
 
@@ -101,7 +101,7 @@ const paymentCardBg = (status) => {
   const key = String(status || '').toLowerCase();
   if (key === 'success') return 'border-green-200 bg-green-50';
   if (['failed', 'cancelled', 'reversed'].includes(key)) return 'border-red-200 bg-red-50';
-  if (key === 'pending') return 'border-orange-200 bg-orange-50';
+  if (key === 'pending') return 'border-gray-200 bg-gray-50';
   return 'border-slate-200 bg-slate-50';
 };
 
@@ -109,7 +109,7 @@ const getStatusIcon = (status) => {
   const key = String(status || '').toLowerCase();
   if (key === 'paid' || key === 'success') return <MdCheckCircle className="text-lg text-green-600" />;
   if (['failed', 'cancelled', 'reversed', 'overdue'].includes(key)) return <MdHighlightOff className="text-lg text-red-600" />;
-  if (key === 'pending') return <MdSchedule className="text-lg text-orange-600" />;
+  if (key === 'pending') return <MdSchedule className="text-lg text-gray-600" />;
   return null;
 };
 
@@ -504,7 +504,7 @@ export default function AdminTrylist() {
                                       </span>
                                       <p className="mt-1 text-xs font-semibold text-slate-900">{money(invoice.amount, service.currency)}</p>
                                       <div className="mt-1 flex gap-1.5 text-[10px] items-center">
-                                        <span title={invoice.emailSent ? 'Email sent' : 'Email pending'} className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 ${invoice.emailSent ? 'bg-green-100 text-green-700 border border-green-300' : 'bg-orange-100 text-orange-700 border border-orange-300'}`}>
+                                        <span title={invoice.emailSent ? 'Email sent' : 'Email pending'} className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 ${invoice.emailSent ? 'bg-green-100 text-green-700 border border-green-300' : 'bg-gray-100 text-gray-400 border border-gray-300'}`}>
                                           <MdEmail className="text-xs" />
                                           {invoice.emailSent ? 'sent' : 'pending'}
                                         </span>
