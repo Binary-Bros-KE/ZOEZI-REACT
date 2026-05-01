@@ -568,12 +568,15 @@ export default function AdminTrylist() {
             <div className="grid gap-3">
               <section className="rounded-lg border border-slate-200 bg-slate-950 p-4 text-white shadow-sm">
                 <p className="text-xs font-semibold uppercase text-slate-300">Automatic Billing Instructions</p>
-                <h2 className="mt-1.5 text-lg font-semibold">Pesapal recurring setup</h2>
+                <h2 className="mt-1.5 text-lg font-semibold">PAYMENT PROCESSING IS HANDLED BY PESAPAL</h2>
                 <div className="mt-3 space-y-2 text-xs leading-5 text-slate-300">
-                  <p>1. Open any subscription service and start automatic billing setup.</p>
-                  <p>2. The customer is redirected to Pesapal and chooses card, M-PESA, or any supported option there.</p>
-                  <p>3. If they enable recurring billing, later charges are handled by Pesapal.</p>
-                  <p>4. Success and recurring updates come back through the IPN route and refresh this service state.</p>
+                  <p>1. Click on the bright red button labelled "Setup Auto Billing".</p>
+                    <p>2. You will be redirected to Pesapal's secure checkout page.</p>
+                    <p>3. On Pesapal, you can choose your preferred payment method (card, M-PESA, etc.) and complete the setup.</p>
+                    <p>4. IMPORTANT: AUTOMATIC PAYMENTS ARE ONLY AVAILABLE FOR CARD/VISA OPTIONS.</p>
+                    <p>5. Scroll to the bottom and check the option to "Setup future recurring / subsciption based payments for account SUB-7e30d1-7e30d2 (Optional)"</p>
+                    <p>6. Set the first date for recurring to the subsequent billing cycle.(Because on click "Proceed", the current month/year shall be deducted immediately)</p>
+                    <p>7. After first payment, PESAPAL will handle subsequent payments automatically.</p>
                 </div>
               </section>
             </div>
