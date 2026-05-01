@@ -30,8 +30,8 @@ export default function AdminLayout({ children }) {
     { label: "Subscriptions", path: "/admin/subscriptions", icon: <FaRegCreditCard /> },
     { label: "Settlements", path: "/admin/settlements", icon: <RiMoneyDollarBoxLine /> },
     { label: "Zoezi Soma", path: "/admin/soma", icon: <ImBooks /> },
-    { label: "Trylist", path: "/admin/trylist", icon: <FaListCheck /> },
     { label: "System Management", path: "/admin/system", icon: <MdSettings /> },
+    { label: "Server Subscriptions", path: "/admin/trylist", icon: <FaListCheck /> },
   ]
 
   const isActive = (path) => location.pathname === path
