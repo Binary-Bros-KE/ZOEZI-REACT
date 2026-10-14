@@ -3,8 +3,13 @@ import { IoClose } from 'react-icons/io5';
 import { FaCashRegister, FaMobileAlt, FaHistory } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import MpesaPayment from '../../../components/MpesaPayment';
+import { PaymentPdfPreview } from './PaymentPdfPreview';
 
 export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) => {
+    const [pdfPreview, setPdfPreview] = useState(null);
+    const [accountStudent, setAccountStudent] = useState(student);
+    const [historyLoading, setHistoryLoading] = useState(true);
+    const [historyError, setHistoryError] = useState('');
     const [activeTab, setActiveTab] = useState('manual'); // 'manual' or 'mpesa'
     const [loading, setLoading] = useState(false);
     const [mpesaModalOpen, setMpesaModalOpen] = useState(false);
@@ -28,11 +33,16 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
 
         // Fetch payment history if student exists
         if (student && isOpen) {
+            setPaymentHistory([]);
+            setAccountStudent(student);
+            setPdfPreview(null);
             fetchPaymentHistory();
         }
     }, [student, isOpen]);
 
     const fetchPaymentHistory = async () => {
+        setHistoryLoading(true);
+        setHistoryError('');
         try {
             const response = await fetch(
                 `${import.meta.env.VITE_SERVER_URL}/students/${student._id}/payment-history`,
@@ -45,11 +55,14 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
             );
 
             const data = await response.json();
-            if (response.ok && data.data) {
-                setPaymentHistory(data.data);
-            }
+            if (!response.ok || !Array.isArray(data.data)) throw new Error(data.message || 'Failed to load payment history');
+            setPaymentHistory(data.data);
+            if (data.student) setAccountStudent(data.student);
         } catch (error) {
             console.error('Error fetching payment history:', error);
+            setHistoryError('Unable to load payment history. Please refresh before generating a statement.');
+        } finally {
+            setHistoryLoading(false);
         }
     };
 
@@ -61,7 +74,7 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
             return;
         }
 
-        if (manualPaymentData.operation === 'deduct' && parseFloat(manualPaymentData.amount) > (student.upfrontFee || 0)) {
+        if (manualPaymentData.operation === 'deduct' && parseFloat(manualPaymentData.amount) > (accountStudent?.upfrontFee || 0)) {
             toast.error('Deduction amount cannot exceed current upfront fee');
             return;
         }
@@ -95,6 +108,8 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
             }
 
             toast.success('Payment recorded successfully!');
+            setAccountStudent(data.data.student);
+            setPdfPreview({ student: data.data.student, payment: data.data.paymentRecord });
             setManualPaymentData({
                 amount: '',
                 paymentMethod: 'cash',
@@ -142,6 +157,8 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
             }
 
             toast.success('M-PESA payment recorded successfully!');
+            setAccountStudent(data.data.student);
+            setPdfPreview({ student: data.data.student, payment: data.data.paymentRecord });
             setMpesaModalOpen(false);
             fetchPaymentHistory(); // Refresh history
             onSuccess();
@@ -162,7 +179,7 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
 
     if (!isOpen || !student) return null;
 
-    const currentBalance = Math.max(0, (student.courseFee || 0) - (student.upfrontFee || 0));
+    const currentBalance = Math.max(0, (accountStudent?.courseFee || 0) - (accountStudent?.upfrontFee || 0));
 
     return (
         <>
@@ -268,7 +285,7 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
                                         </div>
                                         <p className="text-xs text-gray-500 mt-1">
                                             {manualPaymentData.operation === 'deduct' 
-                                                ? `Maximum deduction: KES ${(student.upfrontFee || 0).toLocaleString()}`
+                                                ? `Maximum deduction: KES ${(accountStudent?.upfrontFee || 0).toLocaleString()}`
                                                 : 'Enter payment amount'}
                                         </p>
                                     </div>
@@ -383,14 +400,17 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
                                 </button>
                             </div>
 
-                            {paymentHistory.length === 0 ? (
+                            <button type="button" disabled={historyLoading || !!historyError || loading} onClick={() => setPdfPreview({ student: accountStudent, payment: null })} className="mb-4 px-3 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50">Preview / Download Statement</button>
+                            {historyError && <p role="alert" className="mb-4 text-red-600">{historyError}</p>}
+                            {historyLoading ? <p role="status">Loading payment history...</p> : paymentHistory.length === 0 ? (
                                 <div className="text-center py-12">
                                     <p className="text-gray-500">No payment history found</p>
                                 </div>
                             ) : (
                                 <div className="space-y-3">
                                     {paymentHistory.map((payment, index) => (
-                                        <div key={index} className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <div key={payment._id || index} className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                                            {(!payment.status || payment.status === 'complete') && <button type="button" className="mb-3 px-3 py-1 border border-blue-600 text-blue-600 rounded-lg text-sm" onClick={() => setPdfPreview({ student: accountStudent, payment })}>{payment.operation === 'deduct' ? 'Preview Adjustment PDF' : 'Preview / Download Receipt'}</button>}
                                             <div className="flex justify-between items-start">
                                                 <div>
                                                     <div className="flex items-center gap-3">
@@ -434,6 +454,8 @@ export const EnhancedUpdateFeeModal = ({ student, isOpen, onClose, onSuccess }) 
                     </div>
                 </div>
             </div>
+
+            {pdfPreview && <PaymentPdfPreview student={pdfPreview.student} history={paymentHistory} payment={pdfPreview.payment} onClose={() => setPdfPreview(null)} />}
 
             {/* M-PESA Modal */}
             {mpesaModalOpen && (
